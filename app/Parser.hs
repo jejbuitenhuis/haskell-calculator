@@ -6,18 +6,17 @@ module Parser (
 import Util
 import Types
 
-parse :: String -> AST Double
+parse :: String -> AST
 parse input = parse' $ words input
-
-parse' :: [String] -> AST Double
-parse' [] = Number Nothing
-parse' [num] = Number $ stringToDouble num
-parse' [num, ")"] = Number $ stringToDouble num
-parse' [_,_] = Number Nothing
-parse' (first:second:third:input)
-  | first == "(" = parse' $ arrUntil (== ")") $ second : third : input
-  | second == "+" = Expr (parse' [first]) Add (parse' $ third : input)
-  | second == "-" = Expr (parse' [first]) Sub (parse' $ third : input)
-  | second == "*" = Expr (parse' [first]) Mul (parse' $ third : input)
-  | second == "/" = Expr (parse' [first]) Div (parse' $ third : input)
-  | otherwise = Number Nothing
+    where
+        parse' [] = error "Unexpected end of input"
+        parse' [curr] = SomeNumber $ stringToDouble curr
+        parse' [curr, ")"] = SomeNumber $ stringToDouble curr
+        parse' [_, _] = error "Unexpected state of input"
+        parse' (first:second:list)
+          | first == "(" = Expr $ parse' $ second : list
+          | second == "+" = Add (SomeNumber $ stringToDouble first) (parse' list)
+          | second == "-" = Sub (SomeNumber $ stringToDouble first) (parse' list)
+          | second == "*" = Mul (SomeNumber $ stringToDouble first) (parse' list)
+          | second == "/" = Div (SomeNumber $ stringToDouble first) (parse' list)
+          | otherwise = error "Unexpected character"
