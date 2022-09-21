@@ -16,8 +16,8 @@ license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
-    README.md
-    CHANGELOG.md
+  README.md
+  CHANGELOG.md
 
 source-repository head
   type: git
@@ -25,38 +25,38 @@ source-repository head
 
 library
   other-modules:
-      Paths_calculator
+    Paths_calculator
   hs-source-dirs:
-      src
+    src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      base >=4.7 && <5
+    base >=4.7 && <5
   default-language: Haskell2010
 
 executable calculator-exe
   main-is: Main.hs
   other-modules:
-      Parser
-      Types
-      Util
-      Paths_calculator
+    Parser
+    Types
+    Util
+    Paths_calculator
   hs-source-dirs:
-      app
+    app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
-    , calculator
+    base >=4.7 && <5,
+    calculator
   default-language: Haskell2010
 
 test-suite calculator-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_calculator
+    Paths_calculator
   hs-source-dirs:
-      test
+    test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
-    , calculator
+    base >=4.7 && <5,
+    calculator
   default-language: Haskell2010

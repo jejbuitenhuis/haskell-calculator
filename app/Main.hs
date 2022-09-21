@@ -3,6 +3,7 @@ module Main (main) where
 import Parser
 import qualified Control.Monad
 import System.IO (hSetBuffering, stdout, BufferMode (NoBuffering))
+import Util
 
 loop :: IO ()
 loop = do
