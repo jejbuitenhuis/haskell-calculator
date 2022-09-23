@@ -1,38 +1,16 @@
 module Util (
-    arrUntil,
-    arrUntilIncluding,
-    breakIncluding,
     Map,
     insideMap,
     getFromMap,
     stringToDouble,
+    stringIsNumber,
     debug,
 )
     where
 
 import Text.Read (readMaybe)
 import Debug.Trace (trace)
-
--- Arrays {{{
-arrUntil :: (a -> Bool) -> [a] -> [a]
-arrUntil f = takeWhile (not . f)
-
-arrUntilIncluding :: (a -> Bool) -> [a] -> [a]
-arrUntilIncluding = arrUntilIncluding' []
-    where
-        arrUntilIncluding' acc _ [] = acc
-        arrUntilIncluding' acc f (first:rest) = if f first
-                                                   then arrUntilIncluding' (acc ++ [first]) f rest
-                                                   else acc ++ [first] ++ [head rest]
-
-breakIncluding :: (a -> Bool) -> [a] -> ([a], [a])
-breakIncluding = breakIncluding' []
-    where
-        breakIncluding' acc _ [] = (acc,[])
-        breakIncluding' acc f (first:rest) = if not . f $ first
-                                                then breakIncluding' (acc ++ [first]) f rest
-                                                else (acc ++ [first], rest)
--- }}}
+import Data.Char (isDigit)
 
 -- Custom map {{{
 type Map a = [(String, a)]
@@ -52,6 +30,9 @@ getFromMap needle (current:haystack)
 
 stringToDouble :: String -> Maybe Double
 stringToDouble s = readMaybe s :: Maybe Double
+
+stringIsNumber :: String -> Bool
+stringIsNumber = all isDigit
 
 debug :: c -> String -> c
 debug = flip trace
