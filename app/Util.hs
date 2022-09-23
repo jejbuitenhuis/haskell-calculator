@@ -32,7 +32,7 @@ stringToDouble :: String -> Maybe Double
 stringToDouble s = readMaybe s :: Maybe Double
 
 stringIsNumber :: String -> Bool
-stringIsNumber = all isDigit
+stringIsNumber = all (\n -> isDigit n || n == '-' || n == '.')
 
 debug :: c -> String -> c
 debug = flip trace
