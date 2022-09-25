@@ -9,4 +9,4 @@ data AST = Number (Maybe Double)
          | Mul
          | Div
          | Expression [AST]
-          deriving (Show)
+          deriving (Show, Eq)
